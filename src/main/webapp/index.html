@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script>
+		var authenticated = false;
+		
+		function authenticate(email, password)
+		{
+			$.get('/auth', function(data) {
+				if (data.trim() == "OK") {
+					$('#login').hide();
+  					$('#account').html("Logged in as "+email);
+  					$('#account').show();
+  					authenticated = true;
+  				}
+			});
+		}
+	</script>
+</head>
+
+<body>
+	<h1>Asynchronous Test Application</h1>
+
+	<div id="login">
+		<form method="POST" id="auth">
+			<table border="0">
+			<tr>
+				<td>Username</td><td><input type="text" name="username" value=""></td>
+			</tr>
+			<tr>
+				<td>Password</td><td><input type="password" name="password" value=""></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<a href="#" id="authenticate" onClick="authenticate(document.forms.auth.username.value, document.forms.auth.password.value)">Authenticate</a>
+				</td>
+			</tr>
+			</table>
+		
+		</form>
+	</div>
+	<div id="account" style="display: none;">
+	</div>
+</body>
+</html>
